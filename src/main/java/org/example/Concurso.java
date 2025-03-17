@@ -12,20 +12,20 @@ public class Concurso {
     private List<Participante> lista;
     private LocalDate fechaActual;
 
-    public Concurso(LocalDate FechaInicio, LocalDate FechaCierre, LocalDate FechaActual) {
-        if (FechaInicio.isAfter(FechaCierre)) {
+    public Concurso(LocalDate fechaInicio, LocalDate fechaCierre, LocalDate fechaActual) {
+        if (fechaInicio.isAfter(fechaCierre)) {
             throw new RuntimeException("La fecha de inicio no tiene que ser despues de la de cierre");
         }
-        this.fechaInicio = FechaInicio;
-        this.fechaCierre = FechaCierre;
+        if (fechaCierre.isBefore(fechaInicio)) {
+            throw new RuntimeException("La fecha de cierre tiene que ser despues del inicio");
+        }
+        this.fechaInicio = fechaInicio;
+        this.fechaCierre = fechaCierre;
         lista = new ArrayList<>();
-        this.fechaActual = FechaActual;
+        this.fechaActual = fechaActual;
     }
 
     public void inscribirParticipante(Participante participante) {
-        if (participante == null) {
-            throw new RuntimeException("Debe ingresar un participante");
-        }
         if (fechaActual.isAfter(fechaCierre)) {
             throw new RuntimeException("Ha pasada el periodo de incripscion");
         }
@@ -35,8 +35,11 @@ public class Concurso {
         lista.add(participante);
     }
 
-
     public boolean estaIncripto(Participante participante) {
         return lista.contains(participante);
+    }
+
+    public int cantParticipante() {
+        return lista.size();
     }
 }
