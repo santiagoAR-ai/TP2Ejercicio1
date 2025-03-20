@@ -16,4 +16,8 @@ public class Participante {
     public void sumarPuntos(int puntos) {
         this.puntos += puntos;
     }
+
+    public int getPuntos() {
+        return puntos;
+    }
 }

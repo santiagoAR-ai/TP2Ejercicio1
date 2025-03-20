@@ -16,6 +16,7 @@ public class TestEjercicio1 {
         Concurso concurso = new Concurso(fechaInicio, fechaCierre, fechaActual);
         concurso.inscribirParticipante(participante);
         assertTrue(concurso.estaIncripto(participante));
+        assertEquals(10, participante.getPuntos());
     }
 
     @Test
@@ -29,7 +30,8 @@ public class TestEjercicio1 {
         concurso.inscribirParticipante(participante1);
         concurso.inscribirParticipante(participante2);
         assertEquals(2, concurso.cantParticipante());
-
+        assertTrue(concurso.estaIncripto(participante1));
+        assertTrue(concurso.estaIncripto(participante2));
     }
 
     @Test
@@ -42,6 +44,6 @@ public class TestEjercicio1 {
         assertThrows(RuntimeException.class, () -> {
             concurso.inscribirParticipante(participante);
         });
-
+        assertFalse(concurso.estaIncripto(participante));
     }
 }
