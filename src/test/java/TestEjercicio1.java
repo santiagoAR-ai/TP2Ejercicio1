@@ -41,6 +41,7 @@ public class TestEjercicio1 {
         LocalDate fechaCierre = LocalDate.of(2025, 3, 5);
         LocalDate fechaActual = LocalDate.of(2025, 3, 7);
         Concurso concurso = new Concurso(fechaInicio, fechaCierre, fechaActual);
+
         assertThrows(RuntimeException.class, () -> {
             concurso.inscribirParticipante(participante);
         });
