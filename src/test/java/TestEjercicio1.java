@@ -9,17 +9,16 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TestEjercicio1 {
     @Test
     public void test01() {
-        Participante participante = new Participante("Juan", "Pérez",1);
+        Participante participante = new Participante("Juan", "Pérez");
         LocalDate fechaInicio = LocalDate.of(2025, 3, 1);
         LocalDate fechaCierre = LocalDate.of(2025, 3, 5);
         LocalDate fechaActual = LocalDate.of(2025, 3, 1);
-        Concurso concurso = new Concurso(fechaInicio, fechaCierre, fechaActual,2);
+        Concurso concurso = new Concurso(fechaInicio, fechaCierre, fechaActual);
         concurso.inscribirParticipante(participante);
         assertTrue(concurso.estaIncripto(participante));
         assertEquals(10, participante.getPuntos());
-        assertTrue(concurso.estaInscriptoEnArchivo(participante));
     }
-/*
+
     @Test
     public void test02() {
         Participante participante1 = new Participante("Sofia", "Perez");
@@ -48,5 +47,4 @@ public class TestEjercicio1 {
         });
         assertFalse(concurso.estaIncripto(participante));
     }
- */
 }

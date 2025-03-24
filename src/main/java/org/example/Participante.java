@@ -8,11 +8,12 @@ public class Participante {
     private int puntos = 0;
     private int id;
 
-    public Participante(String nombre, String apellido,int id) {
+    public Participante(String nombre, String apellido) {
         this.nombre = nombre;
         this.apellido = apellido;
-        this.id=id;
+        this.id = id;
     }
+
     public void sumarPuntos(int puntos) {
         this.puntos += puntos;
     }
