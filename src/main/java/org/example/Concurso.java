@@ -1,6 +1,9 @@
 package org.example;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,8 +16,9 @@ public class Concurso {
     private List<Participante> lista;
     private LocalDate fechaActual;
     private int id;
+    private RegistroDeInscripcion registro;
 
-    public Concurso(LocalDate fechaInicio, LocalDate fechaCierre, LocalDate fechaActual, int id) {
+    public Concurso(LocalDate fechaInicio, LocalDate fechaCierre, LocalDate fechaActual, int id,RegistroDeInscripcion registro) {
         if (fechaInicio.isAfter(fechaCierre)) {
             throw new RuntimeException("La fecha de inicio no tiene que ser despues de la de cierre");
         }
@@ -26,6 +30,7 @@ public class Concurso {
         lista = new ArrayList<>();
         this.fechaActual = fechaActual;
         this.id=id;
+        this.registro=registro;
     }
 
     public void inscribirParticipante(Participante participante) {
@@ -35,22 +40,14 @@ public class Concurso {
         if (fechaActual.isEqual(fechaInicio)) {
             participante.sumarPuntos(10);
         }
-        String archivoInscripciones = "inscripciones.txt";
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(archivoInscripciones, true))) {
-            writer.write("Fecha: " + fechaActual + ", ID Participante: " + String.valueOf(participante.getId())
-                    + ", ID Concurso: " + getId());
-            writer.newLine();
-            lista.add(participante);
-        } catch (IOException e) {
-            System.out.println("Error al escribir en el archivo: " + e.getMessage());
-        }
-
+        String nombreYFecha= participante.getNombre() +"||"+fechaActual.toString() + "\n" ;
+        this.registro.registrar(nombreYFecha);
     }
 
     public boolean estaIncripto(Participante participante) {
         return lista.contains(participante);
     }
-
+/*
     public boolean estaInscriptoEnArchivo(Participante participante){
         String archivo = "inscripciones.txt";
         String linea;
@@ -71,7 +68,7 @@ public class Concurso {
         }
         return false;  // Si no lo encontramos
     }
-
+*/
 
     public int cantParticipante() {
         return lista.size();

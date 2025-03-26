@@ -24,4 +24,8 @@ public class Participante {
     public int getId() {
         return this.id;
     }
+
+    public String getNombre() {
+        return nombre;
+    }
 }
