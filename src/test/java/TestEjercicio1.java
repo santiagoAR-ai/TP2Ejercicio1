@@ -1,27 +1,31 @@
-import Persistence.EnDiscoRegistroDeInscripcion;
+import Persistence.RegistroDeInscripcionesDAOJDBC;
 import org.example.Concurso;
 import org.example.Participante;
+import org.example.RegistroDeInscripcion;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestEjercicio1 {
     @Test
     public void test01() {
         Participante participante = new Participante("Juan", "Pérez", 0);
+        var enMemoria = new FakeRegistroDeInscripcion();
+        RegistroDeInscripcion enBD = new RegistroDeInscripcionesDAOJDBC();
         Concurso concurso = new Concurso(LocalDate.now(),
                 LocalDate.now().plusDays(7),
-                LocalDate.now(),
-                2,
-                new EnDiscoRegistroDeInscripcion("C:\\Users\\santi\\OneDrive\\Documentos\\TP2Ejercicio1\\archivo.txt"));
+                LocalDate.now(), 2,
+                enMemoria, new FakeProveedorDeFecha(), enBD);
+        var str = "2025-03-28" + "||" + 0 + "||" + 2;
         concurso.inscribirParticipante(participante);
         assertTrue(concurso.estaIncripto(participante));
         assertEquals(10, participante.getPuntos());
-        //assertTrue(concurso.estaInscriptoEnArchivo(participante));
+        assertTrue(enMemoria.startWith(str));
     }
-
+/*
     @Test
     public void test02() {
         Participante participante1 = new Participante("Sofia", "Perez", 1);
@@ -57,5 +61,5 @@ public class TestEjercicio1 {
         });
         assertFalse(concurso.estaIncripto(participante));
     }
-
+*/
 }

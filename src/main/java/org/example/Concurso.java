@@ -12,9 +12,14 @@ public class Concurso {
     private List<Participante> lista;
     private LocalDate fechaActual;
     private int id;
-    private RegistroDeInscripcion registro;
+    private RegistroDeInscripcion registroEnDisco;
+    private ProveedorDeFecha proveedorDeFecha;
+    private RegistroDeInscripcion registroEnBD;
 
-    public Concurso(LocalDate fechaInicio, LocalDate fechaCierre, LocalDate fechaActual, int id, RegistroDeInscripcion registro) {
+    public Concurso(LocalDate fechaInicio, LocalDate fechaCierre,
+                    LocalDate fechaActual, int id,
+                    RegistroDeInscripcion registroEnDisco, ProveedorDeFecha proveedorDeFecha,
+                    RegistroDeInscripcion registroEnBD) {
         if (fechaInicio.isAfter(fechaCierre)) {
             throw new RuntimeException("La fecha de inicio no tiene que ser despues de la de cierre");
         }
@@ -26,7 +31,9 @@ public class Concurso {
         lista = new ArrayList<>();
         this.fechaActual = fechaActual;
         this.id = id;
-        this.registro = registro;
+        this.registroEnDisco = registroEnDisco;
+        this.proveedorDeFecha = proveedorDeFecha;
+        this.registroEnBD = registroEnBD;
     }
 
     public void inscribirParticipante(Participante participante) {
@@ -37,8 +44,8 @@ public class Concurso {
             participante.sumarPuntos(10);
         }
         lista.add(participante);
-        String nombreYFecha = participante.getNombre() + "||" + fechaActual.toString() + "\n";
-        this.registro.registrar(nombreYFecha);
+        this.registroEnDisco.registrar(proveedorDeFecha.fecha(), participante.getId(), this.id);
+        this.registroEnBD.registrar(proveedorDeFecha.fecha(), participante.getId(), this.id);
     }
 
     public boolean estaIncripto(Participante participante) {

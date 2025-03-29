@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.time.LocalDate;
 
 public class EnDiscoRegistroDeInscripcion implements RegistroDeInscripcion {
     private String ruta;
@@ -15,7 +16,8 @@ public class EnDiscoRegistroDeInscripcion implements RegistroDeInscripcion {
     }
 
     @Override
-    public void registrar(String registro) {
+    public void registrar(LocalDate fechaInscripcion, int idParticipante, int idConcurso) {
+        String registro = fechaInscripcion.toString() + "||" + idParticipante + "||" + idConcurso;
         try {
             Files.write((Paths.get(this.ruta)),
                     registro.getBytes(),
