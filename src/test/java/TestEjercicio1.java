@@ -1,8 +1,6 @@
-import Persistence.EnDiscoRegistroDeInscripcion;
 import Persistence.RegistroDeInscripcionesDAOJDBC;
 import org.example.Concurso;
 import org.example.Participante;
-import org.example.RegistroDeInscripcion;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -26,7 +24,7 @@ public class TestEjercicio1 {
         //verificar que anda
         assertTrue(concurso.estaIncripto(participante));
         assertEquals(10, participante.getPuntos());
-        assertTrue(enMemoria.startWith("2025-03-29" + "||" + 0 + "||" + 2));
+        assertTrue(enMemoria.startWith("2025-03-31" + "||" + 0 + "||" + 2));
         assertEquals("santiagoabdala270@gmail.com - Inscripción: Usted ha realizado la inscripción...",
                 servicefake.mail());
 
@@ -50,10 +48,9 @@ public class TestEjercicio1 {
         assertEquals(2, concurso.cantParticipante());
         assertTrue(concurso.estaIncripto(participante1));
         assertTrue(concurso.estaIncripto(participante2));
-        assertTrue(enMemoria.startWith("2025-03-30"));
         assertEquals("santiagoabdala270@gmail.com - Inscripción: Usted ha realizado la inscripción...",
                 servicefake.mail());
-
+        assertTrue(enMemoria.startWith("2025-04-01"+"||"));
     }
 
     @Test
