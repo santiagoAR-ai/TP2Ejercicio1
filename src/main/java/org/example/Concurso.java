@@ -13,14 +13,11 @@ public class Concurso {
     private LocalDate fechaActual;
     private int id;
     private RegistroDeInscripcion registroEnDisco;
-
-    private RegistroDeInscripcion registroEnBD;
     private IMailService mailService;
 
     public Concurso(LocalDate fechaInicio, LocalDate fechaCierre,
                     LocalDate fechaActual, int id,
-                    RegistroDeInscripcion registroEnDisco,
-                    RegistroDeInscripcion registroEnBD, IMailService mailService) {
+                    RegistroDeInscripcion registroEnDisco, IMailService mailService) {
         if (fechaInicio.isAfter(fechaCierre)) {
             throw new RuntimeException("La fecha de inicio no tiene que ser despues de la de cierre");
         }
@@ -33,7 +30,6 @@ public class Concurso {
         this.fechaActual = fechaActual;
         this.id = id;
         this.registroEnDisco = registroEnDisco;
-        this.registroEnBD = registroEnBD;
         this.mailService= mailService;
     }
 
@@ -46,7 +42,6 @@ public class Concurso {
         }
         lista.add(participante);
         this.registroEnDisco.registrar(this.fechaActual, participante.getId(), this.id);
-        this.registroEnBD.registrar(this.fechaActual, participante.getId(), this.id);
         this.mailService.enviarCorreo(participante.getEmail(),"Inscripción",
                 "Usted ha realizado la inscripción..." );
     }
