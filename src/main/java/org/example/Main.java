@@ -20,7 +20,7 @@ public class Main {
                 LocalDate.now(),
                 2,
                 new EnDiscoRegistroDeInscripcion("C:\\Users\\santi\\OneDrive\\Documentos\\TP2Ejercicio1\\archivo.txt"),
-                enBD,mail);
+                mail);
         concurso.inscribirParticipante(participante);
     }
 }
