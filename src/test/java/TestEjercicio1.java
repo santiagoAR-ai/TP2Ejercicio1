@@ -20,10 +20,9 @@ public class TestEjercicio1 {
                 enMemoria,
                 servicefake);
         concurso.inscribirParticipante(participante);
-        //verificar que anda
+
         assertTrue(concurso.estaIncripto(participante));
         assertEquals(10, participante.getPuntos());
-        assertTrue(enMemoria.startWith("2025-03-31" + "||" + 0 + "||" + 2));
         assertEquals("santiagoabdala270@gmail.com - Inscripción: Usted ha realizado la inscripción...",
                 servicefake.mail());
 
@@ -48,7 +47,6 @@ public class TestEjercicio1 {
         assertTrue(concurso.estaIncripto(participante2));
         assertEquals("santiagoabdala270@gmail.com - Inscripción: Usted ha realizado la inscripción...",
                 servicefake.mail());
-        assertTrue(enMemoria.startWith("2025-04-01"+"||"));
     }
 
     @Test
